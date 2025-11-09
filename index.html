@@ -1,67 +1,57 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8" />
-  <title>Кастомная карта Google</title>
-  <style>
-    html, body, #map {
-      height: 100%;
-      margin: 0;
-      padding: 0;
-    }
-  </style>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AQ.Ab8RN6KMm86gQdX2Tntakg899AJpOIHsgC5cONxVuoFk3ICByQ"></script>
-  <script>
-    function initMap() {
-      const styleMapType = new google.maps.StyledMapType(
-        [
-          {
-            "featureType": "all",
-            "elementType": "geometry.stroke",
-            "stylers": [ { "visibility": "off" } ]
-          },
-          {
-            "featureType": "all",
-            "elementType": "labels",
-            "stylers": [ { "visibility": "off" } ]
-          },
-          {
-            "featureType": "landscape",
-            "elementType": "geometry.fill",
-            "stylers": [ { "color": "#ffffff" } ]
-          },
-          {
-            "featureType": "poi",
-            "elementType": "geometry.fill",
-            "stylers": [ 
-              { "visibility": "on" },
-              { "color": "#ea3448" }
-            ]
-          },
-          {
-            "featureType": "poi.attraction",
-            "elementType": "geometry.fill",
-            "stylers": [ 
-              { "color": "#ea3448" }
-            ]
-          }
-        ]
-      );
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Стати Собаки: Карта</title>
+    <style>
+      html, body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        font-family: sans-serif;
+        background-color: #fdfaf6;
+      }
+      #map {
+        height: 100%;
+        width: 100%;
+        border-radius: 12px;
+        box-shadow: 0 0 20px rgba(0,0,0,0.1);
+      }
+      .map-container {
+        height: 100%;
+        width: 100%;
+        padding: 20px;
+        box-sizing: border-box;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="map-container">
+      <div id="map"></div>
+    </div>
 
-      const map = new google.maps.Map(document.getElementById("map"), {
-        center: { lat: 55.751244, lng: 37.618423 }, // Москва, можно заменить
-        zoom: 12,
-        mapTypeControlOptions: {
-          mapTypeIds: ["styled_map", "roadmap"]
-        }
-      });
+    <script>
+      function initMap() {
+        const center = { lat: 55.7558, lng: 37.6173 }; // Москва
+        const map = new google.maps.Map(document.getElementById("map"), {
+          zoom: 10,
+          center: center,
+          disableDefaultUI: false,
+        });
 
-      map.mapTypes.set("styled_map", styleMapType);
-      map.setMapTypeId("styled_map");
-    }
-  </script>
-</head>
-<body onload="initMap()">
-  <div id="map"></div>
-</body>
+        // Пример маркера
+        new google.maps.Marker({
+          position: center,
+          map,
+          title: "Москва 🐶",
+        });
+      }
+    </script>
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AQ.Ab8RN6KMm86gQdX2Tntakg899AJpOIHsgC5cONxVuoFk3ICByQ&callback=initMap"
+      async
+      defer
+    ></script>
+  </body>
 </html>
